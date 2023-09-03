@@ -1,30 +1,47 @@
-import { useState } from "react"
-import {Link,useNavigate} from 'react-router-dom'
-import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg"
-import visibiltyIcon from '../assets/svg/visibilityIcon.svg'
-
-
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
+import visibiltyIcon from "../assets/svg/visibilityIcon.svg";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {toast} from 'react-toastify'
 
 function Signin() {
+  const [showPassword, setShowPassword] = useState(false);
 
-  const [showPassword,setShowPassword]=useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
-  const [formData,setFormData]=useState({
-    email:'',
-    password:''
-  })
+  const navigate = useNavigate();
 
-  const navigate=useNavigate();
+  const { email, password } = formData;
+  const onSubmit = async (e) => {
+    try {
+      e.preventDefault();
 
-  const {email,password}=formData;
+      const auth = getAuth();
 
-  const onChange=(e)=>{
-   setFormData((prevState)=>({
-    ...prevState,
-    [e.target.id]:e.target.value,
+      const userCredentials = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
 
-   }))
-  }
+      if (userCredentials.user) {
+        navigate('/profile')
+      }
+    } catch (error) {
+      toast.error('Bad User Credentials')
+    }
+  };
+
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  };
 
   return (
     <>
@@ -32,52 +49,54 @@ function Signin() {
         <header>
           <p className="pageHeader">Welcome Back!</p>
         </header>
-        <form>
+        <form onSubmit={onSubmit}>
           <input
-           type="email"
-           className="emailInput"
-           placeholder="email" 
-           id="email"
-           value={email}
-           onChange={onChange}
-           />
+            type="email"
+            className="emailInput"
+            placeholder="email"
+            id="email"
+            value={email}
+            onChange={onChange}
+          />
 
-           <div className="passwordInputDiv">
+          <div className="passwordInputDiv">
             <input
-             type={showPassword ? 'text':'password'}
-             className="passwordInput"
-             id="password"
-             value={password}
-             onChange={onChange}
-             placeholder="password" />
+              type={showPassword ? "text" : "password"}
+              className="passwordInput"
+              id="password"
+              value={password}
+              onChange={onChange}
+              placeholder="password"
+            />
 
-             <img 
+            <img
               src={visibiltyIcon}
               alt="img"
               className="showPassword"
-              onClick={()=>{setShowPassword((prevState)=>!prevState)}} />
-           </div>
+              onClick={() => {
+                setShowPassword((prevState) => !prevState);
+              }}
+            />
+          </div>
 
-           <Link to='/forget' className="forgotPasswordLink">
+          <Link to="/forget" className="forgotPasswordLink">
             Forgot Password
-           </Link>
+          </Link>
 
-           <div className="signInBar">
+          <div className="signInBar">
             <p className="signInText">Sign In</p>
-            <button className='signInButton'>
-              <ArrowRightIcon fill='#ffffff' width='34px' height='34px' />
+            <button className="signInButton">
+              <ArrowRightIcon fill="#ffffff" width="34px" height="34px" />
             </button>
-           </div>
-
+          </div>
         </form>
 
-        <Link to='/signup' className='registerLink'>
+        <Link to="/signup" className="registerLink">
           Sign up Instead
         </Link>
-
       </div>
     </>
-  )
+  );
 }
 
-export default Signin
+export default Signin;
