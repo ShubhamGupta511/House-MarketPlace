@@ -17,8 +17,9 @@ function Signin() {
 
   const { email, password } = formData;
   const onSubmit = async (e) => {
+    e.preventDefault();
     try {
-      e.preventDefault();
+      
 
       const auth = getAuth();
 
@@ -29,7 +30,7 @@ function Signin() {
       );
 
       if (userCredentials.user) {
-        navigate('/profile')
+        navigate('/')
       }
     } catch (error) {
       toast.error('Bad User Credentials')
