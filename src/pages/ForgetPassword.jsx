@@ -38,7 +38,7 @@ function ForgetPassword() {
             onChange={onChange}
           />
 
-          <Link className="forgotPasswordLink" to="signin">
+          <Link className="forgotPasswordLink" to="/signin">
             Sign In
           </Link>
 
