@@ -13,6 +13,7 @@ import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Category from "./pages/Category";
 import CreateListing from "./pages/CreateListing";
+import Listing from "./pages/Listing";
 
 function App() {
   return (
@@ -30,6 +31,10 @@ function App() {
           <Route path="/signin" element={<SignIn/>}/>
           <Route path="/create-listing" element={<CreateListing/>}/>
           <Route path="/signup" element={<SignUp/>}/>
+          <Route 
+            path='/category/:categoryName/:listingId'
+            element={<Listing/>}/>
+            
         </Routes>
         <Navbar/>
       </Router>
