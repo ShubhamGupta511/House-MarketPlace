@@ -18,7 +18,7 @@ function SignUp() {
     password:''
   })
 
-  const auth = getAuth();
+  // const auth = getAuth();
 
 
   const navigate=useNavigate();
