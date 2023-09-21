@@ -15,12 +15,12 @@ function Contact() {
     const params=useParams();
     
     useEffect(()=>{
-
-        const getLandlord=async()=>{
+            const getLandlord=async()=>{
             const docRef=doc(db,'users',params.landlordId)
             const docSnap=await getDoc(docRef)
-            if(!docSnap.exists()){
-                console.log(docSnap.data())
+            console.log("Docsnap"+docSnap);
+            if(docSnap.exists()){
+                // console.log(docSnap.data())
                 setLandlord(docSnap.data())
             }
             else{
@@ -59,10 +59,10 @@ function Contact() {
                      ></textarea>
                 </div>
 
-                {/* <a
+                <a
                  href={`mailto:${landlord.email}?Subject=${searchParams.get('listingName')}&body=${message}`}>
                     <button className="primaryButton">Send Message</button>
-                </a> */}
+                </a>
             </form>
         </main>
       )}

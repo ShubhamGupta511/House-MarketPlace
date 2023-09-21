@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import {
   collection,
   getDocs,
@@ -7,18 +7,18 @@ import {
   where,
   orderBy,
   limit,
-  startAfter,
+  
 } from "firebase/firestore";
 import { db } from "../firebase.config";
 import { toast } from "react-toastify";
 import Spinner from "../components/Spinner";
 import ListingItem from "../components/ListingItem";
 
-function Category() {
+function Offers() {
   const [listings, setListings] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const params = useParams();
+  // const params = useParams();
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -51,7 +51,7 @@ function Category() {
       } catch (error) {
         toast.error("Could not fetch listings");
       }
-    };
+    }
     fetchListings();
   }, []);
 
@@ -78,4 +78,4 @@ function Category() {
   );
 }
 
-export default Category;
+export default Offers;
