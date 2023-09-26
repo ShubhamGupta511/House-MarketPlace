@@ -6,6 +6,11 @@ import { MapContainer,Marker,Popup,TileLayer } from "react-leaflet";
 import { db } from "../firebase.config";
 import Spinner from "../components/Spinner";
 import shareIcon from "../assets/svg/shareIcon.svg";
+import  SwiperCore,{Navigation,Pagination,Scrollbar,Ally} from 'swiper';
+import {Swiper,SwiperSlide} from 'swiper/react';
+import 'swiper/swiper-bundle.css';
+SwiperCore.use([Navigation,Pagination,Scrollbar])
+
 
 function Listing() {
   const [listing, setListing] = useState(null);
@@ -36,7 +41,20 @@ function Listing() {
   }
 
   return (
+
+
     <main>
+    {/* <Swiper slidesPerView={1} pagination={{clickable:true}}>
+      {listing.imgUrls.map((url,index)=>(
+        <SwiperSlide key={index}>
+          <div style={{background:`url(${listing.imgUrls[index]}) center no-repeat`,
+          backgroundSize:'cover' }}
+           className="swiperSlideDiv"></div>
+        </SwiperSlide>
+      ))}
+
+    </Swiper> */}
+
       <div
         className="shareIconDiv"
         onClick={() => {
@@ -57,8 +75,8 @@ function Listing() {
           {listing.name}-
           {listing.offer ? listing.discountedPrice
           .toString().replace(/\B(?=(\d{3})+(?!\d))/g,',')
-           : listing.regularPrice.
-           toString().replace(/\B(?=(\d{3})+(?!\d))/g,',')}
+           : listing.regularPrice
+           .toString().replace(/\B(?=(\d{3})+(?!\d))/g,',')}
            {listing.userRef}
         </p>
         {/* <p className="listingLocation">{listing.location}</p> */}
